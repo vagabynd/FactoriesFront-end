@@ -6,10 +6,6 @@ import actions from '../actions.js';
 
 class PhoneItem extends React.Component {
 
-    edit(e){
-        e.preventDefault();
-    }
-
     delete(e) {
         e.preventDefault();
         fetch('http://localhost:8080/phones/' + this.props.phone.phoneId, {
@@ -32,20 +28,63 @@ class PhoneItem extends React.Component {
             <td><NavLink href={`/phones/${this.props.phone.phoneId}`}>{this.props.phone.name}</NavLink></td>
             <td>{this.props.phone.price}</td>
             <td>{this.props.phone.companyName}</td>
-            <td><Button color="info" onClick={e => this.edit(e)}>Edit</Button>
+            <td><Button color="info" href={`/editPhone/${this.props.phone.phoneId}`}>Edit</Button>
                 <Button color="danger" onClick={e => this.delete(e)}>Delete</Button></td>
         </tr>
     }
 }
 
 class Phones extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {companies: []}
+    }
     componentDidMount(){
+        this.reload();
+    }
+    addPhone(){
+        if (this.modelInput.value && this.priceInput.value && this.companyNameInput.value) {
+
+            let companyId = this.state.companies.find(v => v.name === this.companyNameInput.value).companyId;
+
+            let signInForm = {
+                'name': this.modelInput.value,
+                'price': this.priceInput.value,
+                'companyId': companyId
+            };
+
+            this.modelInput.value = "";
+            this.priceInput.value = "";
+            this.companyNameInput.value = "";
+
+            fetch('http://localhost:8080/phones', {
+                method: 'POST',
+                credentials: "include",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signInForm)
+            })
+                .then(data => {if (data.ok) this.reload()})
+        }
+        else alert("Fill the form");
+    }
+    reload() {
         fetch('http://localhost:8080/phones')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data)
             });
+
+        fetch('http://localhost:8080/companies')
+            .then(response => response.json())
+            .then(data => {
+                this.setState({companies: data});
+            });
     }
+
 
     render() {
         return(
@@ -69,21 +108,21 @@ class Phones extends React.Component {
                 </Table>
                 <Form inline>
                     <FormGroup>
-                        <Label for="exampleEmail" hidden>Email</Label>
-                        <Input type="email" name="email" id="exampleEmail" placeholder="Model" />
+                        <Label for="addModel" hidden>Model</Label>
+                        <Input type="text" name="model" id="addModel" placeholder="Model" innerRef={(input) => {this.modelInput = input}}/>
                     </FormGroup>
                     {' '}
                     <FormGroup>
-                        <Label for="examplePassword" hidden>Password</Label>
-                        <Input type="password" name="password" id="examplePassword" placeholder="Price" />
+                        <Label for="addPrice" hidden>Price</Label>
+                        <Input type="number" name="price" id="addPrice" placeholder="Price" innerRef={(input) => {this.priceInput = input}}/>
                     </FormGroup>
                     {' '}
                     <FormGroup>
-                        <Label for="examplePassword" hidden>Password</Label>
-                        <Input type="password" name="password" id="examplePassword" placeholder="Company name" />
+                        <Label for="addCompanyName" hidden>Company name</Label>
+                        <Input type="text" name="companyName" id="addCompanyName" placeholder="Company name" innerRef={(input) => {this.companyNameInput = input}}/>
                     </FormGroup>
                     {' '}
-                    <Button>Add</Button>
+                    <Button onClick={this.addPhone.bind(this)}>Add</Button>
                 </Form>
             </div>);
     }
@@ -91,7 +130,8 @@ class Phones extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        phones: state
+        phones: state,
+        companies: state
     };
 }
 

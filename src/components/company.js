@@ -20,6 +20,6 @@ const mapStateToProps = (state, ownProps) => {
         companyId: ownProps.match.params.id,
         company: state
     };
-}
+};
 
 export default  connect(mapStateToProps, actions)(Company);

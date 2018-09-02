@@ -46,6 +46,38 @@ class Companies extends React.Component {
             });
     }
 
+    addCompany(){
+        if (this.nameInput.value && this.employeesInput.value) {
+            let signInForm = {
+                'name': this.nameInput.value,
+                'employees': this.employeesInput.value
+            };
+
+            this.nameInput.value = "";
+            this.employeesInput.value = "";
+
+            fetch('http://localhost:8080/companies', {
+                method: 'POST',
+                credentials: "include",
+                mode: 'cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signInForm)
+            })
+                .then(data => {if (data.ok) this.reload()})
+        }
+        else alert("Fill the form");
+    }
+    reload(){
+        fetch('http://localhost:8080/companies')
+            .then(response => response.json())
+            .then(data => {
+                this.props.init(data)
+            })
+    }
+
     render() {
         return(
         <div>
@@ -67,16 +99,16 @@ class Companies extends React.Component {
             </Table>
             <Form inline>
                 <FormGroup>
-                    <Label for="exampleEmail" hidden>Email</Label>
-                    <Input type="email" name="email" id="exampleEmail" placeholder="Company name" />
+                    <Label for="addCompanyName" hidden>Company name</Label>
+                    <Input type="text" name="companyName" id="addCompanyName" placeholder="Company name" innerRef={(input) => {this.nameInput = input}}/>
                 </FormGroup>
                 {' '}
                 <FormGroup>
-                    <Label for="examplePassword" hidden>Password</Label>
-                    <Input type="password" name="password" id="examplePassword" placeholder="Employees" />
+                    <Label for="addCompanyEmployees" hidden>Employees</Label>
+                    <Input type="number" name="companyEmployees" id="addCompanyEmployees" placeholder="Employees" innerRef={(input) => {this.employeesInput = input}}/>
                 </FormGroup>
                 {' '}
-                <Button>Add</Button>
+                <Button onClick={this.addCompany.bind(this)}>Add</Button>
             </Form>
         </div>);
     }

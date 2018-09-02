@@ -9,8 +9,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/home.js';
 import Phones from './components/phones.js';
 import NotFound from './components/notfound.js';
-import Navigation from './navigation.js';
+import Navigation from './components/navigation.js';
 import EditCompanyForm from './components/editCompanyForm';
+import EditPhoneForm from './components/editPhoneForm';
 import Company from './components/company';
 import Phone from './components/phone';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
                     <Route exact path="/companies" component={AppView} />
                     <Route exact path="/phones" component={Phones} />
                     <Route exact path="/editCompany/:id" component={EditCompanyForm} />
+                    <Route exact path="/editPhone/:id" component={EditPhoneForm} />
                     <Route exact path="/companies/:id" component={Company} />
                     <Route exact path="/phones/:id" component={Phone} />
                     <Route component={NotFound} />

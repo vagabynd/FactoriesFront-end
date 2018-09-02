@@ -12,7 +12,7 @@ class EditCompanyForm extends React.Component{
             this.props.init(data);
         })}
 
-    AddCompany(){
+    editCompany(){
         if (this.nameInput.value && this.employeesInput.value) {
             let signInForm = {
                 'companyId': this.props.companyId,
@@ -20,7 +20,7 @@ class EditCompanyForm extends React.Component{
                 'employees': this.employeesInput.value
             };
 
-            fetch('http://localhost:8080/companies', {
+            fetch('http://localhost:8080/companies/' + this.props.companyId, {
                 method: 'PUT',
                 credentials: "include",
                 mode: 'cors',
@@ -56,7 +56,7 @@ class EditCompanyForm extends React.Component{
                     <Input type="number" name="num" id="employees" defaultValue={this.props.company.employees} innerRef={(input) => {this.employeesInput = input}}/>
                 </FormGroup>
 
-                <Button onClick={this.AddCompany.bind(this)}>Edit</Button>
+                <Button onClick={this.editCompany.bind(this)}>Edit</Button>
             </Form>
         );
     }
@@ -67,5 +67,6 @@ const mapStateToProps = (state, ownProps) => {
         companyId: ownProps.match.params.id,
         company: state
     };
-}
+};
+
 export default  connect(mapStateToProps, actions)(EditCompanyForm)

@@ -21,6 +21,6 @@ const mapStateToProps = (state, ownProps) => {
         phoneId: ownProps.match.params.id,
         phone: state
     };
-}
+};
 
 export default  connect(mapStateToProps, actions)(Phone);
