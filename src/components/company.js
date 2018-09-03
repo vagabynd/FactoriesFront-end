@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import actions from "../actions";
+import { ListGroup, ListGroupItem } from 'reactstrap';
 
 class Item extends React.Component {
 
     render() {
         return (
-            <h3>{this.props.phone.name}</h3>
+            <ListGroupItem>{this.props.phone.name}</ListGroupItem>
         );
-
     }
 }
 
@@ -21,13 +21,15 @@ class Company extends React.Component{
     render(){
         console.log(this.props);
         return <div>
-                    <h2>ID: {this.props.company.companyId}</h2>
-                    <h2>Company name: {this.props.company.name}</h2>
-                    <h2>Employees: {this.props.company.employees}</h2>
-                    <h2>Phones:</h2>
+                    <ListGroup>
+                    <ListGroupItem>ID: {this.props.company.companyId}</ListGroupItem>
+                    <ListGroupItem>Company name: {this.props.company.name}</ListGroupItem>
+                    <ListGroupItem>Employees: {this.props.company.employees}</ListGroupItem>
+                    <ListGroupItem>Phones:</ListGroupItem>
                     {this.props.company.phones.map(item =>
                         <Item key={item.phoneId} phone={item}/>
                     )}
+                    </ListGroup>
                 </div>
     }
 }

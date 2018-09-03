@@ -85,7 +85,6 @@ class Phones extends React.Component {
             });
     }
 
-
     render() {
         return(
             <div>
@@ -119,7 +118,11 @@ class Phones extends React.Component {
                     {' '}
                     <FormGroup>
                         <Label for="addCompanyName" hidden>Company name</Label>
-                        <Input type="text" name="companyName" id="addCompanyName" placeholder="Company name" innerRef={(input) => {this.companyNameInput = input}}/>
+                        <Input type="select" name="companyName" id="addCompanyName" innerRef={(input) => {this.companyNameInput = input}}>
+                        {this.state.companies.map(item =>
+                            <option key={item.companyId}>{item.name}</option>
+                        )}
+                        </Input>
                     </FormGroup>
                     {' '}
                     <Button onClick={this.addPhone.bind(this)}>Add</Button>
