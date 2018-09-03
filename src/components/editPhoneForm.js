@@ -72,7 +72,11 @@ class EditPhoneForm extends React.Component {
 
                 <FormGroup>
                     <Label for="companyName">Company Name</Label>
-                    <Input type="text" name="numa" id="companyName" defaultValue={this.props.phone.companyName} innerRef={(input) => {this.companyNameInput = input}}/>
+                    <Input type="select" name="companyName" id="companyName" innerRef={(input) => {this.companyNameInput = input}} multiple>
+                        {this.state.companies.map(item =>
+                            <option key={item.companyId}>{item.name}</option>
+                        )}
+                    </Input>
                 </FormGroup>
 
                 <Button onClick={this.editPhone.bind(this)}>Edit</Button>
