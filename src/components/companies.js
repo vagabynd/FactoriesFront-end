@@ -79,6 +79,7 @@ class Companies extends React.Component {
     }
 
     render() {
+        console.log(this.props);
         return(
         <div>
             <h4>Companies</h4>
@@ -116,7 +117,7 @@ class Companies extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        companies: state
+        companies: state.state
     };
 }
 

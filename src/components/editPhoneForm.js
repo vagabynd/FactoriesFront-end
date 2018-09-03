@@ -57,6 +57,7 @@ class EditPhoneForm extends React.Component {
 
     }
     render(){
+        console.log(this.props);
         return (
             <Form>
                 <FormGroup>
@@ -83,7 +84,7 @@ class EditPhoneForm extends React.Component {
 const mapStateToProps = (state, ownProps) => {
     return {
         phoneId: ownProps.match.params.id,
-        phone: state
+        phone: state.state
     };
 };
 

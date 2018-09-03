@@ -65,7 +65,7 @@ class EditCompanyForm extends React.Component{
 const mapStateToProps = (state, ownProps) => {
     return {
         companyId: ownProps.match.params.id,
-        company: state
+        company: state.state
     };
 };
 

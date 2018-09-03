@@ -130,8 +130,8 @@ class Phones extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        phones: state,
-        companies: state
+        phones: state.state,
+        companies: state.state
     };
 }
 
