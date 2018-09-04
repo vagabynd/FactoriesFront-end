@@ -26,6 +26,7 @@ class CompanyItem extends React.Component {
             <td>{this.props.company.companyId}</td>
             <td><NavLink href={`/companies/${this.props.company.companyId}`}>{this.props.company.name}</NavLink></td>
             <td>{this.props.company.employees}</td>
+            <td>{this.props.company.avgPrice}</td>
             <td><Button color="info" href={`/editCompany/${this.props.company.companyId}`}>Edit</Button>
                 <Button color="danger" onClick={e => this.delete(e)}>Delete</Button></td>
         </tr>
@@ -117,6 +118,7 @@ class Companies extends React.Component {
                     <th scope="row">ID</th>
                     <th scope="row">Company</th>
                     <th scope="row">Employees</th>
+                    <th scope="row">Average price</th>
                     <th></th>
                 </tr>
                 </thead>
