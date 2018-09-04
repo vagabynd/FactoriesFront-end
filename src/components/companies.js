@@ -70,6 +70,20 @@ class Companies extends React.Component {
         }
         else alert("Fill the form");
     }
+
+    minMax(){
+        let min = this.minEmployeesInput.value;
+        let max = this.maxEmployeesInput.value;
+        this.minEmployeesInput.value = "";
+        this.maxEmployeesInput.value = "";
+        fetch('http://localhost:8080/companies?minEmployees=' + min + '&maxEmployees=' + max)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.props.init(data);
+            });
+    }
+
     reload(){
         fetch('http://localhost:8080/companies')
             .then(response => response.json())
@@ -83,6 +97,20 @@ class Companies extends React.Component {
         return(
         <div>
             <h4>Companies</h4>
+            <Form inline>
+                <FormGroup>
+                    <Label for="minEmployees" hidden>Min employees</Label>
+                    <Input type="number" name="minEmployees" id="minEmployees" placeholder="min employees" innerRef={(input) => {this.minEmployeesInput = input}}/>
+                </FormGroup>
+                {' '}
+                <FormGroup>
+                    <Label for="maxEmployees" hidden>Max employees</Label>
+                    <Input type="number" name="maxEmployees" id="maxEmployees" placeholder="max employees" innerRef={(input) => {this.maxEmployeesInput = input}}/>
+                </FormGroup>
+                {' '}
+                <Button onClick={this.minMax.bind(this)}>Find</Button>
+            </Form>
+            <h4></h4>
             <Table bordered>
                 <thead>
                 <tr>

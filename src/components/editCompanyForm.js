@@ -40,7 +40,6 @@ class EditCompanyForm extends React.Component{
             .then(data => {
                 this.props.init(data);
                 this.props.history.push('/companies');
-
             })
     }
     render(){
@@ -50,12 +49,10 @@ class EditCompanyForm extends React.Component{
                     <Label for="companyName">Company Name</Label>
                     <Input type="text" name="name" defaultValue={this.props.company.name} innerRef={(input) => {this.nameInput = input}}/>
                 </FormGroup>
-
                 <FormGroup>
                     <Label for="employees">Employees</Label>
                     <Input type="number" name="num" id="employees" defaultValue={this.props.company.employees} innerRef={(input) => {this.employeesInput = input}}/>
                 </FormGroup>
-
                 <Button onClick={this.editCompany.bind(this)}>Edit</Button>
             </Form>
         );

@@ -71,6 +71,7 @@ class Phones extends React.Component {
         }
         else alert("Fill the form");
     }
+
     reload() {
         fetch('http://localhost:8080/phones')
             .then(response => response.json())
@@ -85,10 +86,37 @@ class Phones extends React.Component {
             });
     }
 
+    minMax(){
+        let min = this.minPriceInput.value;
+        let max = this.maxPriceInput.value;
+        this.minPriceInput.value = "";
+        this.maxPriceInput.value = "";
+        fetch('http://localhost:8080/phones?minPrice=' + min + '&maxPrice=' + max)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.props.init(data);
+            });
+    }
+
     render() {
         return(
             <div>
                 <h4>Phones</h4>
+                <Form inline>
+                <FormGroup>
+                    <Label for="minPrice" hidden>Min price</Label>
+                    <Input type="number" name="minPrice" id="minPrice" placeholder="min price" innerRef={(input) => {this.minPriceInput = input}}/>
+                </FormGroup>
+                {' '}
+                <FormGroup>
+                    <Label for="maxPrice" hidden>Max price</Label>
+                    <Input type="number" name="maxPrice" id="maxPrice" placeholder="max price" innerRef={(input) => {this.maxPriceInput = input}}/>
+                </FormGroup>
+                {' '}
+                <Button onClick={this.minMax.bind(this)}>Find</Button>
+                </Form>
+                <h2></h2>
                 <Table bordered>
                     <thead>
                     <tr>
