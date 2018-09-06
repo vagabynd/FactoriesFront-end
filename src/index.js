@@ -19,7 +19,7 @@ const store = createStore(reducer);
 
 store.dispatch({
     type: "SET_STATE",
-    state: {state:[],phones:[{phoneId:0,name:""}]}
+    state: {state:[],phones:[{phoneId:0,name:""}],phone:{name:"",price:0,company:{name:""}}}
 });
 
 ReactDOM.render(

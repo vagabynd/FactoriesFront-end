@@ -27,7 +27,7 @@ class PhoneItem extends React.Component {
             <td>{this.props.phone.phoneId}</td>
             <td><NavLink href={`/phones/${this.props.phone.phoneId}`}>{this.props.phone.name}</NavLink></td>
             <td>{this.props.phone.price}</td>
-            <td>{this.props.phone.companyName}</td>
+            <td>{this.props.phone.company.name}</td>
             <td><Button color="info" href={`/editPhone/${this.props.phone.phoneId}`}>Edit</Button>
                 <Button color="danger" onClick={e => this.delete(e)}>Delete</Button></td>
         </tr>
@@ -45,12 +45,12 @@ class Phones extends React.Component {
     addPhone(){
         if (this.modelInput.value && this.priceInput.value && this.companyNameInput.value) {
 
-            let companyId = this.state.companies.find(v => v.name === this.companyNameInput.value).companyId;
-
+            let company = this.state.companies.find(v => v.name === this.companyNameInput.value);
+            console.log(company);
             let signInForm = {
                 'name': this.modelInput.value,
                 'price': this.priceInput.value,
-                'companyId': companyId
+                'company': company
             };
 
             this.modelInput.value = "";
@@ -76,7 +76,8 @@ class Phones extends React.Component {
         fetch('http://localhost:8080/phones')
             .then(response => response.json())
             .then(data => {
-                this.props.init(data)
+                this.props.init(data);
+                console.log(this.props)
             });
 
         fetch('http://localhost:8080/companies')

@@ -25,13 +25,13 @@ class EditPhoneForm extends React.Component {
     editPhone() {
         if (this.nameInput.value && this.priceInput.value && this.companyNameInput.value) {
 
-            let companyId = this.state.companies.find(v => v.name === this.companyNameInput.value).companyId;
+            let company = this.state.companies.find(v => v.name === this.companyNameInput.value);
 
             let signInForm = {
                 'phoneId': this.props.phoneId,
                 'name': this.nameInput.value,
                 'price': this.priceInput.value,
-                'companyId': companyId
+                'company': company
             };
             fetch('http://localhost:8080/phones/' + this.props.phoneId, {
                 method: 'PUT',

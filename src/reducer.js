@@ -6,6 +6,8 @@ const reducer = function (state, action) {
             return {state:action.data, phones:[]};
         case "SET_PHONES":
             return action.data;
+        case "INIT_PHONE":
+            return {state:[],phones:[],phone:action.data};
     }
     return state;
 };

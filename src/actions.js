@@ -10,4 +10,10 @@ const initPhones = function (data) {
         data
     }
 };
-export default { init, initPhones };
+const initPhone = function (data) {
+    return {
+        type: "INIT_PHONE",
+        data
+    }
+};
+export default { init, initPhones, initPhone};
