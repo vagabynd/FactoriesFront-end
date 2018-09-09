@@ -69,8 +69,8 @@ class Companies extends React.Component {
             })
                 .then(response => response.json())
                 .then(data => {
-                if (data.id) this.reload();
-                else alert(data.message)})
+                    if (data.id) this.reload();
+                    else alert(data.message)})
         }
         else alert("Fill the form");
     }
