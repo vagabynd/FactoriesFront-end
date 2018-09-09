@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import actions from "../actions";
+import {API_URL} from '../constants.js';
 
 class Phone extends React.Component{
-    componentDidMount(){fetch('http://localhost:8080/phones/' + this.props.phoneId)
+    componentDidMount(){fetch(API_URL+'/phones/' + this.props.phoneId)
         .then(response => response.json())
         .then(data =>  {
             this.props.initPhone(data);

@@ -2,20 +2,20 @@ import { Button, Table, NavLink, Form, FormGroup, Label, Input  } from 'reactstr
 import React from 'react';
 import {connect} from 'react-redux';
 import actions from '../actions.js';
-
+import {API_URL} from '../constants.js';
 
 class PhoneItem extends React.Component {
 
     delete(e) {
         e.preventDefault();
-        fetch('http://localhost:8080/phones/' + this.props.phone.phoneId, {
+        fetch(API_URL+'/phones/' + this.props.phone.phoneId, {
             method: 'delete'
         })
             .then(data => {if (data.ok) this.reload()})
     }
 
     reload(){
-        fetch('http://localhost:8080/phones')
+        fetch(API_URL+'/phones')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data)
@@ -57,7 +57,7 @@ class Phones extends React.Component {
             this.priceInput.value = "";
             this.companyNameInput.value = "";
 
-            fetch('http://localhost:8080/phones', {
+            fetch(API_URL+'/phones', {
                 method: 'POST',
                 credentials: "include",
                 mode: 'cors',
@@ -76,13 +76,13 @@ class Phones extends React.Component {
     }
 
     reload() {
-        fetch('http://localhost:8080/phones')
+        fetch(API_URL+'/phones')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);
             });
 
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies')
             .then(response => response.json())
             .then(data => {
                 this.setState({companies: data});
@@ -94,7 +94,7 @@ class Phones extends React.Component {
         let max = this.maxPriceInput.value;
         this.minPriceInput.value = "";
         this.maxPriceInput.value = "";
-        fetch('http://localhost:8080/phones?minPrice=' + min + '&maxPrice=' + max)
+        fetch(API_URL+'/phones?minPrice=' + min + '&maxPrice=' + max)
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);

@@ -2,11 +2,11 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import {connect} from 'react-redux';
 import actions from "../actions";
-
+import {API_URL} from '../constants.js';
 
 class EditCompanyForm extends React.Component{
 
-    componentDidMount(){fetch('http://localhost:8080/companies/' + this.props.companyId)
+    componentDidMount(){fetch(API_URL+'/companies/' + this.props.companyId)
         .then(response => response.json())
         .then(data =>  {
             this.props.init(data);
@@ -20,7 +20,7 @@ class EditCompanyForm extends React.Component{
                 'employees': this.employeesInput.value
             };
 
-            fetch('http://localhost:8080/companies/' + this.props.companyId, {
+            fetch(API_URL+'/companies/' + this.props.companyId, {
                 method: 'PUT',
                 credentials: "include",
                 mode: 'cors',
@@ -42,7 +42,7 @@ class EditCompanyForm extends React.Component{
         else alert("Fill the form");
     }
     reload(){
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies/')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);

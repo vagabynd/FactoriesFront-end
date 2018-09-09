@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import actions from "../actions";
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import {API_URL} from '../constants.js';
 
 class Item extends React.Component {
 
@@ -13,7 +14,7 @@ class Item extends React.Component {
 }
 
 class Company extends React.Component{
-    componentDidMount(){fetch('http://localhost:8080/companies/' + this.props.companyId)
+    componentDidMount(){fetch(API_URL+'/companies/' + this.props.companyId)
         .then(response => response.json())
         .then(data =>  {
             this.props.initPhones(data);

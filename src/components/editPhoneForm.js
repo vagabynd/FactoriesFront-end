@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import actions from "../actions";
-
+import {API_URL} from '../constants.js';
 
 class EditPhoneForm extends React.Component {
     constructor(props){
@@ -10,12 +10,12 @@ class EditPhoneForm extends React.Component {
         this.state = {companies: []}
     }
     componentDidMount(){
-        fetch('http://localhost:8080/phones/' + this.props.phoneId)
+        fetch(API_URL+'/phones/' + this.props.phoneId)
         .then(response => response.json())
         .then(data =>  {
             this.props.init(data);
         });
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies')
             .then(response => response.json())
             .then(data => {
                 this.setState({companies: data});
@@ -33,7 +33,7 @@ class EditPhoneForm extends React.Component {
                 'price': this.priceInput.value,
                 'company': company
             };
-            fetch('http://localhost:8080/phones/' + this.props.phoneId, {
+            fetch(API_URL+'/phones/' + this.props.phoneId, {
                 method: 'PUT',
                 credentials: "include",
                 mode: 'cors',
@@ -55,7 +55,7 @@ class EditPhoneForm extends React.Component {
         else alert("Fill the form");
     }
     reload(){
-        fetch('http://localhost:8080/phones')
+        fetch(API_URL+'/phones')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);
