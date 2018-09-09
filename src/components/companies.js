@@ -2,19 +2,20 @@ import { Button, Table, NavLink, Form, FormGroup, Label, Input  } from 'reactstr
 import React from 'react';
 import {connect} from 'react-redux';
 import actions from '../actions.js';
+import {API_URL} from '../constants.js';
 
 class CompanyItem extends React.Component {
 
     delete(e) {
         e.preventDefault();
-        fetch('http://localhost:8080/companies/' + this.props.company.companyId, {
+        fetch(API_URL+'/companies/' + this.props.company.companyId, {
             method: 'delete'
         })
             .then(data => {if (data.ok) this.reload()})
     }
 
     reload(){
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies/')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data)
@@ -40,7 +41,7 @@ class Companies extends React.Component {
     }
 
     componentDidMount(){
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies/')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data)
@@ -57,7 +58,7 @@ class Companies extends React.Component {
             this.nameInput.value = "";
             this.employeesInput.value = "";
 
-            fetch('http://localhost:8080/companies', {
+            fetch(API_URL+'/companies/', {
                 method: 'POST',
                 credentials: "include",
                 mode: 'cors',
@@ -80,7 +81,7 @@ class Companies extends React.Component {
         let max = this.maxEmployeesInput.value;
         this.minEmployeesInput.value = "";
         this.maxEmployeesInput.value = "";
-        fetch('http://localhost:8080/companies?minEmployees=' + min + '&maxEmployees=' + max)
+        fetch(API_URL+'/companies?minEmployees=' + min + '&maxEmployees=' + max)
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);
@@ -88,7 +89,7 @@ class Companies extends React.Component {
     }
 
     reload(){
-        fetch('http://localhost:8080/companies')
+        fetch(API_URL+'/companies/')
             .then(response => response.json())
             .then(data => {
                 this.props.init(data)
