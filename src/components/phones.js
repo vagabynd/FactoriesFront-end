@@ -67,7 +67,10 @@ class Phones extends React.Component {
                 },
                 body: JSON.stringify(signInForm)
             })
-                .then(data => {if (data.ok) this.reload()})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id) this.reload();
+                    else alert(data.message)})
         }
         else alert("Fill the form");
     }

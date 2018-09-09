@@ -8,7 +8,6 @@ class Phone extends React.Component{
         .then(data =>  {
             this.props.initPhone(data);
         });
-        //console.log(this.props)
     }
 
     render(){
@@ -21,7 +20,6 @@ class Phone extends React.Component{
     }
 }
 const mapStateToProps = (state, ownProps) => {
-    //console.log(state);
     return {
         phoneId: ownProps.match.params.id,
         phone: state.phone

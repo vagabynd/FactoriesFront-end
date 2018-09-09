@@ -67,7 +67,10 @@ class Companies extends React.Component {
                 },
                 body: JSON.stringify(signInForm)
             })
-                .then(data => {if (data.ok) this.reload()})
+                .then(response => response.json())
+                .then(data => {
+                if (data.id) this.reload();
+                else alert(data.message)})
         }
         else alert("Fill the form");
     }
@@ -80,7 +83,6 @@ class Companies extends React.Component {
         fetch('http://localhost:8080/companies?minEmployees=' + min + '&maxEmployees=' + max)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 this.props.init(data);
             });
     }
