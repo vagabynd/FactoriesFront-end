@@ -80,7 +80,6 @@ class Phones extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.props.init(data);
-                console.log(this.props)
             });
 
         fetch('http://localhost:8080/companies')
@@ -98,7 +97,6 @@ class Phones extends React.Component {
         fetch('http://localhost:8080/phones?minPrice=' + min + '&maxPrice=' + max)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 this.props.init(data);
             });
     }

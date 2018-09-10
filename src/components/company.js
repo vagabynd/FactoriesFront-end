@@ -19,7 +19,6 @@ class Company extends React.Component{
             this.props.initPhones(data);
         })}
     render(){
-        console.log(this.props);
         return <div>
                     <ListGroup>
                     <ListGroupItem>ID: {this.props.company.companyId}</ListGroupItem>
